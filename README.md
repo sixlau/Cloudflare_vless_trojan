@@ -1,6 +1,8 @@
-# 2024.7月即将更新。。。。
+# 2024.7月21日发布，更新中………………
 
 # Cloudflare-workers/pages代理脚本
+
+### 注意：本项目不通过也不支持任何第三方提供的订阅引用、自动优选、节点转换等功能
 
 支持workers部署，实现vless+ws+tls、trojan+ws+tls、vless+ws、trojan+ws代理节点
 
@@ -14,15 +16,20 @@
 
 1、UUID必须自定义（第7行）
 
-2、如果无法访问CF类网站或者ChatGPT，说明ProxyIP失效，可更换ProxyIP，自定义（第9行）
+2、如果无法访问CF类网站或者ChatGPT网页版，说明ProxyIP失效，可更换ProxyIP，自定义（第9行）
 
-3、伪装网页默认留空，显示为本地IP信息代码界面，可自定义（第10行），建议保持默认不动
+3、订阅节点的优选IP（第13-27行）与端口（第30-44行），优选IP与端口两者变量编号须对应
 
-#### 方式二：也可在CF-workers/pages界面中使用变量设置，注：变量设置结果将覆盖本地修改结果
+4、伪装网页默认留空，显示为本地IP信息代码界面，可自定义（第10行），为避免风险建议默认留空
+
+#### 方式二：也可在CF-workers/pages界面中使用变量设置
+注：变量设置结果将覆盖本地修改结果
 | 变量作用 | 变量名称| 变量值要求| 变量默认值|
 | :--- | :--- | :--- | :--- |
 | 1、必要的uuid | uuid |符合uuid规定格式 |万人骑uuid：77a571fb-4fd2-4b37-8596-1b7d9728bb5c|
 | 2、能上CF类网站 | proxyip |ipv4地址、域名、[ipv6地址]|proxyip域名：cdn.xn--b6gac.eu.org|
+| 3、订阅节点优选IP | ip1到ip13 |CF官方IP、CF反代IP、CF优选域名| CF官方不同地区的visa域名|
+| 4、优选IP对应端口 | pt1到pt13 |CF13个标准端口、反代IP对应端口| CF13个标准端口|
 
 ---------------------------------
 
@@ -32,32 +39,42 @@
 
 1、密码必须自定义（第4行）
 
-2、如果无法访问CF类网站或者ChatGPT，说明ProxyIP失效，可更换ProxyIP，自定义（第5行）
+2、如果无法访问CF类网站或者ChatGPT网页版，说明ProxyIP失效，可更换ProxyIP，自定义（第5行）
 
-3、伪装网页默认留空，显示为本地IP信息代码界面，可自定义（第6行），建议保持默认不动
+3、订阅节点的优选IP（第9-23行）与端口（第26-40行），优选IP与端口两者变量编号须对应
 
-#### 方式二：也可在CF-workers/pages界面中使用变量设置，注：变量设置结果将覆盖本地修改结果
+4、伪装网页默认留空，显示为本地IP信息代码界面，可自定义（第6行），为避免风险建议默认留空
+
+#### 方式二：也可在CF-workers/pages界面中使用变量设置
+注：变量设置结果将覆盖本地修改结果，每更新变量需要重新上传一次原始pages文件
 | 变量作用 | 变量名称| 变量值要求| 变量默认值|
 | :--- | :--- | :--- | :--- |
 | 1、必要的密码 | pswd |任意字符号 |万人骑密码：trojan|
 | 2、能上CF类网站 | proxyip |ipv4地址、域名、[ipv6地址]|proxyip域名：cdn.xn--b6gac.eu.org|
+| 3、订阅节点优选IP | ip1到ip13 |CF官方IP、CF反代IP、CF优选域名| CF官方不同地区的visa域名|
+| 4、优选IP对应端口 | pt1到pt13 |CF13个标准端口、反代IP对应端口| CF13个标准端口|
 
 ---------------------------------
-## 三：查看相关分享链接
-#### CF Vless分享链接，在网页输入： https:// workers域名 或者 pages域名 或者 自定义域名/自定义uuid
-#### CF Trojan分享链接，在网页输入：https:// workers域名 或者 pages域名 或者 自定义域名/自定义密码
+## 三：CF Vless/trojan的单节点支持path路径自定义proxyip
 
-#### 注意： 
+支持IPV4、IPV6(需中括号)、域名三种方式
 
-由于workers域名已被全网TLS阻断、pages域名已被中国移动TLS阻断（代理客户端开启切片功能可免疫阻断）
+可在客户端上的path设置处直接修改：/pyip=IPV4地址  ；  /pyip=[IPV6地址]  ；  /pyip=域名
 
-所以需使用自定义域名或者在代理环境下才可查看分享链接
+此项设置仅影响当前客户端使用的单节点，并不影响其他单节点或者订阅节点
 
-如果你看了教程，就可手搓无数个优选IP节点，也不需要买域名，也不需要分享链接
+---------------------------------
 
-客户端不支持切片功能时，workers域名节点建议使用关TLS的节点或者使用自定义域节点
+## 四：查看配置信息与分享链接
 
-### 相关说明及注意点请查看[甬哥博客及视频教程](https://ygkkk.blogspot.com/2023/07/cfworkers-vless.html)
+CF Vless：在网页输入 https:// workers域名 或者 pages域名 或者 自定义域名 /自定义uuid
+
+CF Trojan：在网页输入 https:// workers域名 或者 pages域名 或者 自定义域名 /自定义密码
+
+支持单节点链接、通用节点订阅、sing-box节点订阅、clash节点订阅
+
+---------------------------------
+### 相关说明及注意点请查看[甬哥博客](https://ygkkk.blogspot.com/2023/07/cfworkers-vless.html)
 
 ### 视频教程：
 
@@ -67,9 +84,11 @@
 
 [CF workers永久免费Trojan节点搭建教程（三）：无需自定义域名，workers与pages两方案部署优选IP节点；CF Trojan与CF Vless对比总结；如何看待Trojan被识别](https://youtu.be/lmhhL8M1k0I)
 
+[CF vless/trojan永久免费节点教程（四）：解读优选官方IP、优选反代IP、优选域名三者的关系与特点；ProxyIP存在的意义](https://youtu.be/NaLd-orwFUE)
+
 [直播精选回顾：CF workers vless免费节点四大特点，节点被断流阻断问题](https://youtu.be/9OHGpWlfdJ0)
 
-[ClouDNS永久免费域名最终教程(三)：CF pages vless自定义域名直接部署](https://youtu.be/PN0BLANXh4I)
+[ClouDNS永久免费域名最终教程：CF pages vless自定义域名直接部署](https://youtu.be/PN0BLANXh4I)
 
 ---------------------------------
 ---------------------------------
